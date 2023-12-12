@@ -4,8 +4,8 @@ const salt = bcrypt.genSaltSync(10);
 let createNewUser = async (data) => {// api tạo ng dùng
     return new Promise(async(res,rej) => {
         try {
-            let hashPasswordFromBcrypt = await hashUserPassword (data.password);
-            await db.User.create({
+            let hashPasswordFromBcrypt = await hashUserPassword (data.password);// mã hóa mật khẩu
+            await db.User.create({// tạo người dùng
                 email: data.email,
     password: hashPasswordFromBcrypt,
     firstName: data.firstName,
@@ -30,7 +30,7 @@ let createNewUser = async (data) => {// api tạo ng dùng
 // let createNewUser = (data ) => {
 //     console.log(data)
 // }
-let hashUserPassword = (password) => {
+let hashUserPassword = (password) => {// hàm mã hóa
     return new Promise (async (res,rej) => {
         try {
             let hashPassword = await bcrypt.hashSync(password,salt);
@@ -41,7 +41,7 @@ let hashUserPassword = (password) => {
     })
 }
 let getAllUser = () => {
-    return new Promise (async(res, rej) => {
+    return new Promise (async(res, rej) => {// liệt kê các người dùng
         try {
             let users = db.User.findAll({
                 raw :true,
